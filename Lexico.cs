@@ -14,6 +14,7 @@ namespace LYA2_Semantica2
         private StreamReader archivo;
         protected StreamWriter log;
         protected int line;
+		protected int c_count;
 
         int[,] TRAND =  
         {
@@ -64,6 +65,7 @@ namespace LYA2_Semantica2
             log = new StreamWriter("prueba.log");
             log.AutoFlush = true;
             line = 1;
+			c_count = 0;
         }
         public Lexico(string nombre)
         {
@@ -71,6 +73,7 @@ namespace LYA2_Semantica2
             log = new StreamWriter("prueba.log");
             log.AutoFlush = true;
             line = 1;
+			c_count = 0;
         }
         public void Dispose()
         {
@@ -188,6 +191,7 @@ namespace LYA2_Semantica2
                     if (c ==  '\n') line++;
                     
                     archivo.Read();
+					c_count++;
                 }
             }
             if (estado == E)
