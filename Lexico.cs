@@ -11,7 +11,7 @@ namespace LYA2_Semantica2
     {
         const int F = -1;
         const int E = -2;
-        private StreamReader archivo;
+        protected StreamReader archivo;
         protected StreamWriter log;
         protected int line;
 		protected int c_count;

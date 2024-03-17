@@ -23,7 +23,7 @@ namespace LYA2_Semantica2
             }
             else
             {
-                throw new Error("Sintaxis: Se espera un "+espera +" en la linea "+line,log);
+                throw new Error("Sintaxis: Se espera un "+espera +" ("+getContenido() +") en la linea "+line,log);
             }
         }
         public void match(Tipos espera)
@@ -34,7 +34,7 @@ namespace LYA2_Semantica2
             }
             else
             {
-                throw new Error("Sintaxis: Se espera un "+espera +" en la linea "+line,log);
+                throw new Error("Sintaxis: Se espera un "+espera +" ("+getContenido() +") en la linea "+line,log);
             }
         }
     }
