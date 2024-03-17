@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 /*
 	[*]	Requerimento 1: Evalua el "else"
 	[*]	Requeriminto 2: Incrementar la variable del for (incremento) al final de la ejecución
-	[*]	Requeriminto 3: Hacer el Do
-	[*]	Requeriminto 4: Hacer el While 
+	[ ]	Requeriminto 3: Hacer el Do
+	[ ]	Requeriminto 4: Hacer el While 
 */
 
 namespace LYA2_Semantica2
@@ -260,27 +260,28 @@ namespace LYA2_Semantica2
             str = str.Replace("\\n", "\n");
             str = str.Replace("\\t", "\t");
 
-           match(Tipos.Cadena);
-			if (getContenido() == ",")
-			{
-				match(",");
+            match(Tipos.Cadena);
+            if (getContenido() == ",")
+            {
+                match(",");
 
-				if (str.Contains("%f"))
-				{
-					str = str.Replace("%f", valorVariable(getContenido()).ToString());
-				}
+                if (str.Contains("%f"))
+                {
+                    str = str.Replace("%f", valorVariable(getContenido()).ToString());
+                }
 
-				string var = getContenido();
+                string var = getContenido();
 
-				if (!existeVariable(var))
-					throw new Error("de Sintaxis: No existe la variable "+ var, log);
-				match(Tipos.Identificador);
-			}
-				if(eval){
-					Console.Write(str);
-				}
+                if (!existeVariable(var))
+                    throw new Error("de Sintaxis: No existe la variable " + var, log);
+                match(Tipos.Identificador);
+            }
+            if (eval)
+            {
+                Console.Write(str);
+            }
 
-			match(")");
+            match(")");
             match(";");
 
         }
@@ -297,20 +298,22 @@ namespace LYA2_Semantica2
             name = getContenido();
             match(Tipos.Identificador);
 
-			if(eval){
-				var = Console.ReadLine();
+            if (eval)
+            {
+                var = Console.ReadLine();
 
-				if (!existeVariable(name))
-					throw new Error("de Sintaxis: No existe la variable " + name, log);
-				if (var != null){
-					if (!float.TryParse(var, out float result))
-						throw new Error("de Entrada: La captura no es un numero", log);
-					modificarValor(name, result);
-				}
+                if (!existeVariable(name))
+                    throw new Error("de Sintaxis: No existe la variable " + name, log);
+                if (var != null)
+                {
+                    if (!float.TryParse(var, out float result))
+                        throw new Error("de Entrada: La captura no es un numero", log);
+                    modificarValor(name, result);
+                }
 
-				else 
-					throw new Error("de Entrada: No se capturó un numero o es \"null\"", log);
-			}
+                else
+                    throw new Error("de Entrada: No se capturó un numero o es \"null\"", log);
+            }
             match(")");
             match(";");
         }
@@ -330,7 +333,7 @@ namespace LYA2_Semantica2
 
             if (existeVariable(var_1))
             {
-				match(Tipos.Identificador);
+                match(Tipos.Identificador);
                 var1_value = valorVariable(var_1);
 
                 if (getClasificacion() == Tipos.Incremento)
@@ -458,9 +461,10 @@ namespace LYA2_Semantica2
                     Expresion();
                     new_val = s.Pop();
                 }
-				if(eval){
-                	modificarValor(var_1, new_val);
-				}
+                if (eval)
+                {
+                    modificarValor(var_1, new_val);
+                }
 
             }
             else
@@ -477,7 +481,7 @@ namespace LYA2_Semantica2
         {
             match("if");
             match("(");
-			bool eval = Condicion() && state;
+            bool eval = Condicion() && state;
             match(")");
             if (getContenido() == "{")
             {
@@ -491,49 +495,51 @@ namespace LYA2_Semantica2
             if (getContenido() == "else")
             {
                 match("else");
-				if (!eval){
-					if (getContenido() == "{")
-					{
-						bloqueInstrucciones(true);
-					}
-					else
-					{
-						Instruccion(true);
-					}
-				}
-				else{
-					if (getContenido() == "{")
-					{
-						bloqueInstrucciones(false);
-					}
-					else
-					{
-						Instruccion(false);
-					}
+                if (!eval)
+                {
+                    if (getContenido() == "{")
+                    {
+                        bloqueInstrucciones(true);
+                    }
+                    else
+                    {
+                        Instruccion(true);
+                    }
+                }
+                else
+                {
+                    if (getContenido() == "{")
+                    {
+                        bloqueInstrucciones(false);
+                    }
+                    else
+                    {
+                        Instruccion(false);
+                    }
 
-				}
+                }
             }
         }
         // Condicion -> Expresion operadoRelacional Expresion
-   //      private bool Condicion()
-   //      {
-			// string op = getContenido();
-   //          Expresion();
-   //          match(Tipos.OperadorRelacional);
-   //          Expresion();
-			// float E2 = s.Pop();
-			// float E1= s.Pop();
-			// switch (op){
-			// 	case "<" : return E1  <	E2;
-			// 	case ">" : return E1  >	E2;
-			// 	case "<=": return E1 <= E2;
-			// 	case ">=": return E1 >= E2;
-			// 	case "==": return E1 == E2;
-			// 	default  : return E1 != E2;
-			// }
-   //      }
+        //      private bool Condicion()
+        //      {
+        // string op = getContenido();
+        //          Expresion();
+        //          match(Tipos.OperadorRelacional);
+        //          Expresion();
+        // float E2 = s.Pop();
+        // float E1= s.Pop();
+        // switch (op){
+        // 	case "<" : return E1  <	E2;
+        // 	case ">" : return E1  >	E2;
+        // 	case "<=": return E1 <= E2;
+        // 	case ">=": return E1 >= E2;
+        // 	case "==": return E1 == E2;
+        // 	default  : return E1 != E2;
+        // }
+        //      }
 
-		private bool Condicion()
+        private bool Condicion()
         {
             Expresion(); // E1
             string operador = getContenido();
@@ -543,12 +549,12 @@ namespace LYA2_Semantica2
             float E1 = s.Pop();
             switch (operador)
             {
-                case ">" : return E1 >  E2;
+                case ">": return E1 > E2;
                 case ">=": return E1 >= E2;
-                case "<" : return E1 <  E2;
+                case "<": return E1 < E2;
                 case "<=": return E1 <= E2;
                 case "==": return E1 == E2;
-                default  : return E1 != E2;
+                default: return E1 != E2;
             }
         }
 
@@ -558,16 +564,27 @@ namespace LYA2_Semantica2
         {
             match("while");
             match("(");
-            Condicion();
-            match(")");
-            if (getContenido() == "{")
-            {
-                bloqueInstrucciones(eval);
-            }
-            else
-            {
-                Instruccion(eval);
-            }
+			bool while_eval = true;
+			int tmp_c = c_count - 1 ;
+			do{
+            	while_eval = eval && Condicion();
+            	match(")");
+                if (getContenido() == "{")
+                {
+                    bloqueInstrucciones(eval);
+                }
+                else
+                {
+                    Instruccion(eval);
+                }
+				if(while_eval){
+					archivo.DiscardBufferedData();
+					archivo.BaseStream.Seek(tmp_c, SeekOrigin.Begin);
+					nextToken();
+				}
+
+			}while(while_eval);
+
         }
         //Do -> do bloqueInstrucciones | Intruccion while(Condicion);
         private void Do(bool eval)
@@ -591,62 +608,73 @@ namespace LYA2_Semantica2
         //For -> for(Asignacion Condicion; Incremento) BloqueInstruccones | Instruccion 
 
 
-		private void For(bool eval)
-    	{
-			match("for");
-			match("(");
-			Asignacion(eval);
-			string vaaar  = getContenido();
+        private void For(bool eval)
+        {
+            match("for");
+            match("(");
+            Asignacion(eval);
+            string vaaar = getContenido();
 
-			int tmp_c = c_count-1;
-			int tmp_line = line;
+            int tmp_c = c_count - 1;
+            int tmp_line = line;
             bool eval_For = true;
+            string operator_for = "";
 
-			do{
-				eval_For = Condicion() && eval;
-				match(";");
-				Incremento(eval_For);
-				match(")");
-				if (getContenido() == "{")
-				{
-					bloqueInstrucciones(eval_For);
-				}
-				else
-				{
-					Instruccion(eval_For);
-				}
-				if (eval_For){
-					c_count = tmp_c - vaaar.Length;
-					line = tmp_line;
-					archivo.DiscardBufferedData();
-					archivo.BaseStream.Seek(c_count, SeekOrigin.Begin);
-					// Console.WriteLine(getContenido());
-					nextToken();
-				}
-			}while(eval_For);
+            do
+            {
+                eval_For = Condicion() && eval;
+                match(";");
+                Incremento(eval_For, ref operator_for);
+                match(")");
+                if (getContenido() == "{")
+                {
+                    bloqueInstrucciones(eval_For);
+                }
+                else
+                {
+                    Instruccion(eval_For);
+                }
+                if (eval_For)
+                {
+                    c_count = tmp_c - vaaar.Length;
+                    line = tmp_line;
+                    archivo.DiscardBufferedData();
+
+                    if (operator_for.Equals(("++")))
+                    {
+                        modificarValor(vaaar, valorVariable(vaaar) + 1);
+                    }
+                    else
+                    {
+                        modificarValor(vaaar, valorVariable(vaaar) - 1);
+                    }
+
+                    archivo.BaseStream.Seek(c_count, SeekOrigin.Begin);
+                    nextToken();
+                }
+            } while (eval_For);
         }
 
 
         //Incremento -> Identificador ++ | --
-        private void Incremento(bool eval)
+        private void Incremento(bool eval, ref string str)
         {
-			string var_name = getContenido();	
-			float val_var = valorVariable(var_name);
-			if (!existeVariable(var_name))
-				throw new Error("de Sintaxis: la variable " + var_name + " no existe ", log);
-			
+            string var_name = getContenido();
+            float val_var = valorVariable(var_name);
+            if (!existeVariable(var_name))
+                throw new Error("de Sintaxis: la variable " + var_name + " no existe ", log);
+
             match(Tipos.Identificador);
             if (getClasificacion() == Tipos.Incremento)
-            {	
-				match(Tipos.Incremento);
-				val_var++;
+            {
+                str = "++";
+                match(Tipos.Incremento);
             }
             else
             {
+                str = "--";
                 match(Tipos.Decremento);
-				val_var--;
             }
-			modificarValor(var_name, val_var);
 
         }
         //Main      -> void main() bloqueInstrucciones
@@ -721,9 +749,9 @@ namespace LYA2_Semantica2
             }
             else if (getClasificacion() == Tipos.Identificador)
             {
-				string var_name = getContenido();
-				if (!existeVariable(var_name))
-					throw new Error("de Sintaxis: la variable " + var_name + " no existe ", log);
+                string var_name = getContenido();
+                if (!existeVariable(var_name))
+                    throw new Error("de Sintaxis: la variable " + var_name + " no existe ", log);
                 s.Push(valorVariable(getContenido()));
                 match(Tipos.Identificador);
             }
