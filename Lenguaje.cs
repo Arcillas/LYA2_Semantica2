@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 /*
 	[*]	Requerimento 1: Evalua el "else"
 	[*]	Requeriminto 2: Incrementar la variable del for (incremento) al final de la ejecución
-	[ ]	Requeriminto 3: Hacer el Do
+	[*]	Requeriminto 3: Hacer el Do
 	[*]	Requeriminto 4: Hacer el While 
 */
 
