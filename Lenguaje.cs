@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 	[*]	Requerimento 1: Evalua el "else"
 	[*]	Requeriminto 2: Incrementar la variable del for (incremento) al final de la ejecución
 	[ ]	Requeriminto 3: Hacer el Do
-	[ ]	Requeriminto 4: Hacer el While 
+	[*]	Requeriminto 4: Hacer el While 
 */
 
 namespace LYA2_Semantica2
@@ -571,13 +571,14 @@ namespace LYA2_Semantica2
             	match(")");
                 if (getContenido() == "{")
                 {
-                    bloqueInstrucciones(eval);
+                    bloqueInstrucciones(while_eval);
                 }
                 else
                 {
-                    Instruccion(eval);
+                    Instruccion(while_eval);
                 }
 				if(while_eval){
+					c_count = tmp_c;
 					archivo.DiscardBufferedData();
 					archivo.BaseStream.Seek(tmp_c, SeekOrigin.Begin);
 					nextToken();
@@ -590,19 +591,33 @@ namespace LYA2_Semantica2
         private void Do(bool eval)
         {
             match("do");
-            if (getContenido() == "{")
-            {
-                bloqueInstrucciones(eval);
-            }
-            else
-            {
-                Instruccion(eval);
-            }
-            match("while");
-            match("(");
-            Condicion();
-            match(")");
-            match(";");
+			bool eval_Do = true;
+			int tmp_c;
+			do {	
+				tmp_c = c_count - 1;
+				if (getContenido() == "{")
+				{
+					bloqueInstrucciones(eval_Do);
+				}
+				else
+				{
+					Instruccion(eval_Do);
+				}
+
+				match("while");
+				match("(");
+				eval_Do = eval && Condicion();
+				match(")");
+				match(";");
+
+				if(eval_Do){
+					c_count = tmp_c;
+					archivo.DiscardBufferedData();
+					archivo.BaseStream.Seek(tmp_c, SeekOrigin.Begin);
+					nextToken();
+				}
+
+			}while(eval_Do);
 
         }
         //For -> for(Asignacion Condicion; Incremento) BloqueInstruccones | Instruccion 
