@@ -563,12 +563,12 @@ namespace LYA2_Semantica2
         private void While(bool eval)
         {
             match("while");
+            int tmp_c = c_count;
             match("(");
 			bool while_eval = true;
-			int tmp_c = c_count - 1 ;
 			do{
-            	while_eval = eval && Condicion();
-            	match(")");
+            	while_eval = Condicion() && eval;
+				match(")");
                 if (getContenido() == "{")
                 {
                     bloqueInstrucciones(while_eval);
@@ -659,7 +659,7 @@ namespace LYA2_Semantica2
                     {
                         modificarValor(vaaar, valorVariable(vaaar) + 1);
                     }
-                    else
+                    else if (operator_for.Equals(("--")))
                     {
                         modificarValor(vaaar, valorVariable(vaaar) - 1);
                     }
