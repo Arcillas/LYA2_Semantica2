@@ -606,7 +606,7 @@ namespace LYA2_Semantica2
 
 				match("while");
 				match("(");
-				eval_Do = eval && Condicion();
+				eval_Do = Condicion() && eval;
 				match(")");
 				match(";");
 
